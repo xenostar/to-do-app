@@ -1,3 +1,22 @@
+@import-normalize;
+
+html {
+  box-sizing: border-box;
+  line-height: normal;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  outline: none;
+}
+
 .App {
   text-align: center;
 }
