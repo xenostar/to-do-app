@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import './App.css'
 
+
+
 const StyledInput = styled.input`
   background-color: rgba(255,255,255,0.25);
   border: 0;
@@ -18,6 +20,7 @@ const StyledList = styled.div`
 
   div {
     background-color: rgba(255,255,255,0.25);
+    cursor: pointer;
     line-height: 50px;
     margin-top: 1px;
     text-align: left;
@@ -28,21 +31,46 @@ const StyledList = styled.div`
   }
 `
 
-let List = (props) => {
-  if (props.todos == '') {
+
+
+const StyledListDone = styled(StyledList)`
+  div {
+    background-color: rgba(255,255,255,0.15);
+    color: #444;
+  }
+`;
+
+const List = (props) => {
+  if (props.todos === '') {
     return ''
   }
   return (
     <StyledList>
       {props.todos.map((todo, index) => (
-        <div key={index}>{todo}</div>
+        <div key={index} onClick={ index => console.log("You are clicking on... ") }>{todo}</div>
       ))}
     </StyledList>
   )
 }
 
+const ListDone = (props) => {
+  if (props.todosDone === '') {
+    return ''
+  }
+  return (
+    <StyledListDone>
+      {props.todosDone.map((todoDone, index) => (
+        <div key={index}>{todoDone}</div>
+      ))}
+    </StyledListDone>
+  )
+}
+
+
+
 function App() {
-  const [todos, setTodos]     = useState([])
+  const [todos, setTodos] = useState([])
+  const [todosDone, setTodosDone] = useState(['Done'])
   const [newTodo, setNewTodo] = useState('')
 
   console.log("New Todo State:", newTodo)
@@ -65,6 +93,7 @@ function App() {
           />
         </form>
         <List todos={ todos } />
+        <ListDone todosDone={ todosDone } />
       </header>
     </div>
   )
