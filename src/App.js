@@ -31,32 +31,35 @@ const StyledList = styled.div`
   }
 `
 
-
-
 const StyledListDone = styled(StyledList)`
   div {
     background-color: rgba(255,255,255,0.15);
     color: #444;
   }
-`;
+`
+
+
+
 
 const List = (props) => {
-  if (props.todos === '') {
-    return ''
+  if (props.todos === '') { return '' }
+
+  let handleClick = () => {
+
   }
+
   return (
     <StyledList>
       {props.todos.map((todo, index) => (
-        <div key={index} onClick={ index => console.log("You are clicking on... ") }>{todo}</div>
+        <div key={index} onClick={ () => { console.log(index) } }>{todo}</div>
       ))}
     </StyledList>
   )
 }
 
 const ListDone = (props) => {
-  if (props.todosDone === '') {
-    return ''
-  }
+  if (props.todosDone === '') { return '' }
+
   return (
     <StyledListDone>
       {props.todosDone.map((todoDone, index) => (
@@ -73,24 +76,20 @@ function App() {
   const [todosDone, setTodosDone] = useState(['Done'])
   const [newTodo, setNewTodo] = useState('')
 
-  console.log("New Todo State:", newTodo)
+  let handleSubmit = (event) => {
+    event.preventDefault()
+    // console.log("Adding:", newTodo)
+    setTodos([newTodo, ...todos])
+    setNewTodo('')
+  }
+
+  // console.log("New Todo State:", newTodo)
 
   return (
     <div className="App">
       <header className="App-header">
-        <form
-          onSubmit={ event => {
-            event.preventDefault()
-            console.log("Adding:", newTodo)
-            setTodos([newTodo, ...todos])
-            setNewTodo('')
-          }
-        }>
-          <StyledInput
-            value={ newTodo }
-            placeholder="Add New Todo..."
-            onChange={ event => setNewTodo(event.target.value) }
-          />
+        <form onSubmit={handleSubmit}>
+          <StyledInput value={ newTodo } placeholder="Add New Todo..." onChange={ event => setNewTodo(event.target.value) } />
         </form>
         <List todos={ todos } />
         <ListDone todosDone={ todosDone } />
