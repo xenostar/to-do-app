@@ -39,57 +39,85 @@ const StyledListDone = styled(StyledList)`
 export default function App() {
   const [todos, setTodos] = useState([])
   const [todosDone, setTodosDone] = useState([])
-  const [newTodo, setNewTodo] = useState('')
+  const [newTodo, setNewTodo] = useState({name: '', completed: false})
 
 
   function handleSubmit(event) {
     event.preventDefault()
-    // console.log("Adding:", newTodo)
+    console.log("Adding:", newTodo)
     setTodos([newTodo, ...todos])
-    setNewTodo('')
+    setNewTodo({
+      name: '',
+      completed: false
+    })
   }
 
   function handleChange(event) {
-    setNewTodo(event.target.value)
+    setNewTodo({
+      name: event.target.value,
+      completed: false,
+    })
   }
 
 
   const List = (props) => {
-    if (props.todos === '') { return '' }
+    if (props.todos.name === '') { return '' }
 
-    function handleClick(todo, index) {
-      console.log(index)
-      setTodos('')
+    function handleClick(todo) {
+      // Set current todo to complete status
+      todo.completed = true
+
+      // Remove todo that is completed
+      let filteredTodos = todos.filter(function (todo) {
+        return todo.completed === false;
+      });
+
+      // Logging
+      console.log('List:', todos)
+      console.log('Filtered List', filteredTodos)
+
+      // Updating State
+      setTodos([...filteredTodos])
       setTodosDone([todo, ...todosDone])
     }
 
     return (
       <StyledList>
         {props.todos.map((todo, index) => (
-          <div key={index} onClick={() => handleClick(todo, index)}>{todo}</div>
+          <div key={index} onClick={() => handleClick(todo)}>{todo.name} (Completed: {todo.completed.toString()})</div>
           ))}
       </StyledList>
     )
   }
 
   const ListDone = (props) => {
-    if (props.todosDone === '') { return '' }
+    if (props.todosDone.name === '') { return '' }
 
-    function handleClick(todoDone, index) {
-      console.log(index)
+    function handleClick(todoDone) {
+      // Set current todo to incomplete status
+      todoDone.completed = false
+
+      // Remove todo that is incomplete
+      let filteredTodosDone = todosDone.filter(function (todoDone) {
+        return todoDone.completed === true;
+      });
+
+      // Logging
+      console.log('ListDone:', todosDone)
+      console.log('Filtered ListDone', filteredTodosDone)
+
       setTodos([todoDone, ...todos])
-      setTodosDone('')
+      setTodosDone([...filteredTodosDone])
     }
 
     return (
       <StyledListDone>
         {props.todosDone.map((todoDone, index) => (
-          <div key={index} onClick={() => handleClick(todoDone, index)}>{todoDone}</div>
+          <div key={index} onClick={() => handleClick(todoDone)}>{todoDone.name} (Completed: {todoDone.completed.toString()})</div>
         ))}
       </StyledListDone>
     )
   }
-
 
   // console.log("New Todo State:", newTodo)
 
@@ -97,7 +125,7 @@ export default function App() {
     <div className="App">
       <header className="App-header">
         <form onSubmit={handleSubmit}>
-          <StyledInput placeholder="Add New Todo..." value={newTodo} onChange={handleChange} />
+          <StyledInput placeholder="Add New Todo..." value={newTodo.name} onChange={handleChange} />
         </form>
         <List todos={todos} />
         <ListDone todosDone={todosDone} />
