@@ -27,9 +27,6 @@ const StyledList = styled.div`
   div:last-child {
     border-radius: 0 0 5px 5px;
   }
-  i {
-    margin-right: 10px;
-  }
 `
 const StyledListDone = styled(StyledList)`
   div {
@@ -87,7 +84,7 @@ export default function App() {
     return (
       <StyledList>
         {props.todos.map((todo, index) => (
-          <div key={index} onClick={() => handleClick(todo)}><i class="far fa-square"></i>{todo.name}</div>
+          <div key={index} onClick={() => handleClick(todo)}>{todo.name} (Completed: {todo.completed.toString()})</div>
         ))}
       </StyledList>
     )
@@ -116,7 +113,7 @@ export default function App() {
     return (
       <StyledListDone>
         {props.todosDone.map((todoDone, index) => (
-          <div key={index} onClick={() => handleClick(todoDone)}><i class="far fa-check-square"></i>{todoDone.name}</div>
+          <div key={index} onClick={() => handleClick(todoDone)}>{todoDone.name} (Completed: {todoDone.completed.toString()})</div>
         ))}
       </StyledListDone>
     )
