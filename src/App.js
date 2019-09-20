@@ -42,7 +42,7 @@ const StyledListDone = styled(StyledList)`
 export default function App() {
   const [todos, setTodos] = useState([])
   const [todosDone, setTodosDone] = useState([])
-  const [newTodo, setNewTodo] = useState({name: '', completed: false})
+  const [newTodo, setNewTodo] = useState({name: '', complete: false})
 
 
   function handleSubmit(event) {
@@ -51,14 +51,14 @@ export default function App() {
     setTodos([newTodo, ...todos])
     setNewTodo({
       name: '',
-      completed: false
+      complete: false
     })
   }
 
   function handleChange(event) {
     setNewTodo({
       name: event.target.value,
-      completed: false,
+      complete: false,
     })
   }
 
@@ -68,11 +68,11 @@ export default function App() {
 
     function handleClick(todo) {
       // Set current todo to complete status
-      todo.completed = true
+      todo.complete = true
 
-      // Remove todo that is completed
+      // Remove todo that is complete
       let filteredTodos = todos.filter(function (todo) {
-        return todo.completed === false;
+        return todo.complete === false;
       });
 
       // Logging
@@ -98,11 +98,11 @@ export default function App() {
 
     function handleClick(todoDone) {
       // Set current todo to incomplete status
-      todoDone.completed = false
+      todoDone.complete = false
 
       // Remove todo that is incomplete
       let filteredTodosDone = todosDone.filter(function (todoDone) {
-        return todoDone.completed === true;
+        return todoDone.complete === true;
       });
 
       // Logging
