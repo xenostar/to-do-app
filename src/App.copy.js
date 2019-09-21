@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckSquare } from '@fortawesome/free-solid-svg-icons'
+import { faSquare } from '@fortawesome/free-regular-svg-icons'
 import styled from 'styled-components'
 import './App.css'
 
@@ -19,13 +22,15 @@ const StyledList = styled.div`
   div {
     background-color: rgba(255,255,255,0.25);
     cursor: pointer;
-    line-height: 50px;
     margin-top: 1px;
-    text-align: left;
-    padding: 0 10px;
+    padding: 12px;
   }
   div:last-child {
     border-radius: 0 0 5px 5px;
+  }
+
+  svg {
+    margin-right: 12px;
   }
 `
 const StyledListDone = styled(StyledList)`
@@ -39,37 +44,41 @@ const StyledListDone = styled(StyledList)`
 export default function App() {
   const [todos, setTodos] = useState([])
   const [todosDone, setTodosDone] = useState([])
-  const [newTodo, setNewTodo] = useState({name: '', completed: false})
+  const [newTodo, setNewTodo] = useState({name: '', complete: false})
 
 
-  function handleSubmit(event) {
+  const handleSubmit = event => {
     event.preventDefault()
+
+    if (!newTodo.name) return
+
     console.log("Adding:", newTodo)
+
     setTodos([newTodo, ...todos])
     setNewTodo({
       name: '',
-      completed: false
+      complete: false
     })
   }
 
-  function handleChange(event) {
+  const handleChange = event => {
     setNewTodo({
       name: event.target.value,
-      completed: false,
+      complete: false,
     })
   }
 
 
-  const List = (props) => {
+  const List = props => {
     if (props.todos.name === '') { return '' }
 
-    function handleClick(todo) {
+    const handleClick = todo => {
       // Set current todo to complete status
-      todo.completed = true
+      todo.complete = true
 
-      // Remove todo that is completed
+      // Remove todo that is complete
       let filteredTodos = todos.filter(function (todo) {
-        return todo.completed === false;
+        return todo.complete === false;
       });
 
       // Logging
@@ -84,22 +93,22 @@ export default function App() {
     return (
       <StyledList>
         {props.todos.map((todo, index) => (
-          <div key={index} onClick={() => handleClick(todo)}>{todo.name} (Completed: {todo.completed.toString()})</div>
+          <div key={index} onClick={() => handleClick(todo)}><FontAwesomeIcon icon={faSquare} />{todo.name}</div>
         ))}
       </StyledList>
     )
   }
 
-  const ListDone = (props) => {
+  const ListDone = props => {
     if (props.todosDone.name === '') { return '' }
 
-    function handleClick(todoDone) {
+    const handleClick = todoDone => {
       // Set current todo to incomplete status
-      todoDone.completed = false
+      todoDone.complete = false
 
       // Remove todo that is incomplete
       let filteredTodosDone = todosDone.filter(function (todoDone) {
-        return todoDone.completed === true;
+        return todoDone.complete === true;
       });
 
       // Logging
@@ -113,17 +122,19 @@ export default function App() {
     return (
       <StyledListDone>
         {props.todosDone.map((todoDone, index) => (
-          <div key={index} onClick={() => handleClick(todoDone)}>{todoDone.name} (Completed: {todoDone.completed.toString()})</div>
+          <div key={index} onClick={() => handleClick(todoDone)}><FontAwesomeIcon icon={faCheckSquare} />{todoDone.name}</div>
         ))}
       </StyledListDone>
     )
   }
 
+
   // console.log("New Todo State:", newTodo)
 
+
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="app">
+      <header className="app-container">
         <form onSubmit={handleSubmit}>
           <StyledInput placeholder="Add New Todo..." value={newTodo.name} onChange={handleChange} />
         </form>
