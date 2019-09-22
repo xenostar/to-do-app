@@ -1,34 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckSquare } from '@fortawesome/free-solid-svg-icons'
 import { faSquare } from '@fortawesome/free-regular-svg-icons'
 import styled from 'styled-components'
 import './App.css'
 
+// import ListDone from '../components/ListDone'
 
 const StyledInput = styled.input`
   background-color: rgba(255,255,255,0.25);
   border: 0;
-  border-radius: 5px 5px 0 0;
   font-size: 32px;
   color: #eee;
   padding: 0 10px;
   line-height: 50px;
-  width: 400px;
+  width: 100%;
 `
 const StyledList = styled.div`
-  width: 400px;
-
   div {
     background-color: rgba(255,255,255,0.25);
     cursor: pointer;
     margin-top: 1px;
     padding: 12px;
   }
-  div:last-child {
-    border-radius: 0 0 5px 5px;
-  }
-
   svg {
     margin-right: 12px;
   }
@@ -70,6 +64,10 @@ export default function App() {
 
 
   const List = props => {
+    useEffect(() => {
+      console.log('I will only run once');
+    }, []);
+
     if (props.todos.name === '') { return '' }
 
     const handleClick = todo => {
@@ -133,14 +131,16 @@ export default function App() {
 
 
   return (
-    <div className="app">
-      <header className="app-container">
-        <form onSubmit={handleSubmit}>
-          <StyledInput placeholder="Add New Todo..." value={newTodo.name} onChange={handleChange} />
-        </form>
-        <List todos={todos} />
-        <ListDone todosDone={todosDone} />
-      </header>
+    <div className="app-page">
+      <div className="app-container">
+        <div className="app">
+          <form onSubmit={handleSubmit}>
+            <StyledInput placeholder="Add New Todo..." value={newTodo.name} onChange={handleChange} />
+          </form>
+          <List todos={todos} />
+          <ListDone todos={todos} todosDone={todosDone} />
+        </div>
+      </div>
     </div>
   )
 }
