@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import './App.css'
-
 import List from '../components/List'
-// import ListDone from '../components/ListDone'
 
 const StyledInput = styled.input`
   background-color: rgba(255,255,255,0.25);
@@ -15,12 +13,10 @@ const StyledInput = styled.input`
   width: 100%;
 `
 
-
 export default function App() {
   const [todos, setTodos] = useState([])
   const [todosDone, setTodosDone] = useState([])
   const [newTodo, setNewTodo] = useState('')
-
 
   const handleSubmit = event => {
     event.preventDefault()
@@ -42,7 +38,6 @@ export default function App() {
     setNewTodo(event.target.value)
   }
 
-
   const handleListClick = todo => {
     // Set current todo to isComplete status
     todo.isComplete = true
@@ -61,7 +56,6 @@ export default function App() {
     setTodosDone([todo, ...todosDone])
   }
 
-
   const handleListDoneClick = todoDone => {
     // Set current todo to incomplete status
     todoDone.isComplete = false
@@ -79,9 +73,7 @@ export default function App() {
     setTodosDone([...filteredTodosDone])
   }
 
-
   // console.log("New Todo State:", newTodo)
-
 
   return (
     <div className="app-page">
