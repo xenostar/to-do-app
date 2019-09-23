@@ -138,7 +138,7 @@ export default function App() {
             <StyledInput placeholder="Add New Todo..." value={newTodo.name} onChange={handleChange} />
           </form>
           <List todos={todos} />
-          <ListDone todos={todos} todosDone={todosDone} />
+          <ListDone todosDone={todosDone} />
         </div>
       </div>
     </div>
