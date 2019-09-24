@@ -28,8 +28,8 @@ export default function List({ todos, onListClick }) {
   return (
     <StyledList>
       {todos.map((todo, index) => (
-        <div className={ todo.isComplete ? 'complete' : 'incomplete' } key={index} onClick={() => onListClick(todo)}>
-          <FontAwesomeIcon icon={ todo.isComplete ? faCheckSquare : faSquare } />
+        <div className={todo.isComplete ? 'complete' : 'incomplete'} key={index} onClick={() => onListClick(todo)}>
+          <FontAwesomeIcon icon={todo.isComplete ? faCheckSquare : faSquare} />
           {todo.name}
         </div>
       ))}

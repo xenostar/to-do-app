@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import './App.css'
 import List from '../components/List'
+import './App.css'
 
 const StyledInput = styled.input`
   background-color: rgba(255,255,255,0.25);
@@ -20,10 +20,7 @@ export default function App() {
 
   const handleSubmit = event => {
     event.preventDefault()
-
     if (!newTodo) return
-
-    console.log("Adding:", newTodo)
 
     const addNewTodo = {
       name: newTodo,
@@ -47,10 +44,6 @@ export default function App() {
       return todo.isComplete === false;
     });
 
-    // Logging
-    console.log('List:', todos)
-    console.log('Filtered List', filteredTodos)
-
     // Updating State
     setTodos([...filteredTodos])
     setTodosDone([todo, ...todosDone])
@@ -65,15 +58,9 @@ export default function App() {
       return todoDone.isComplete === true;
     });
 
-    // Logging
-    console.log('ListDone:', todosDone)
-    console.log('Filtered ListDone', filteredTodosDone)
-
     setTodos([todoDone, ...todos])
     setTodosDone([...filteredTodosDone])
   }
-
-  // console.log("New Todo State:", newTodo)
 
   return (
     <div className="app-page">
