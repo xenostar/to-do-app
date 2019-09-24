@@ -41,8 +41,8 @@ export default function App() {
 
     // Remove todo that is isComplete
     let filteredTodos = todos.filter(function (todo) {
-      return todo.isComplete === false;
-    });
+      return todo.isComplete === false
+    })
 
     // Updating State
     setTodos([...filteredTodos])
@@ -55,8 +55,8 @@ export default function App() {
 
     // Remove todo that is incomplete
     let filteredTodosDone = todosDone.filter(function (todoDone) {
-      return todoDone.isComplete === true;
-    });
+      return todoDone.isComplete === true
+    })
 
     setTodos([todoDone, ...todos])
     setTodosDone([...filteredTodosDone])
